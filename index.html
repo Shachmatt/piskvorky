@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Piškvorky</title>
+  <meta name="description" content="Piškvorky pro dva hráče na jednom zařízení – deska 15×15, pět v řadě, zahájení Swap2.">
+  <meta name="theme-color" content="#d3d3d3">
+  <meta name="color-scheme" content="light">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Piškvorky">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app">
+    <header class="top">
+      <div class="player" id="p1">
+        <span class="player-name">Hráč 1</span>
+        <svg class="player-icon" viewBox="-4 -4 48 48" aria-hidden="true"></svg>
+      </div>
+      <h1>Piškvorky</h1>
+      <div class="player" id="p2">
+        <span class="player-name">Hráč 2</span>
+        <svg class="player-icon" viewBox="-4 -4 48 48" aria-hidden="true"></svg>
+      </div>
+      <div class="status" aria-live="polite">
+        <div id="ukazatel">Zadejte první tah</div>
+        <div id="hint"></div>
+      </div>
+    </header>
+
+    <main class="board-area">
+      <div class="board-fit">
+        <div class="board-wrap">
+          <svg id="board" viewBox="0 0 600 600" overflow="visible" role="img" aria-label="Herní deska 15 × 15"></svg>
+          <div class="banner" id="banner" hidden>
+            <h2 id="banner-text">Vyhrály křížky!!!</h2>
+            <p id="banner-sub"></p>
+            <div class="banner-buttons">
+              <button type="button" id="again">Hrát znovu</button>
+              <button type="button" id="view-board">Zobrazit desku</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bottom">
+      <div class="choice">
+        <div class="choice-caption" id="choice-caption">Začínají:</div>
+        <div class="choice-buttons">
+          <button type="button" class="choice-btn sym-x" id="choose-x" aria-label="Křížky">X</button>
+          <button type="button" class="choice-btn sym-o" id="choose-o" aria-label="Kolečka">O</button>
+          <button type="button" class="choice-btn" id="choose-plus2" aria-label="Položit 2 další kameny">+2</button>
+        </div>
+      </div>
+      <div class="controls">
+        <button type="button" id="undo">↶ Zpět</button>
+        <button type="button" id="rules-btn">Pravidla</button>
+        <button type="button" id="new-btn">Nová hra</button>
+      </div>
+    </footer>
+  </div>
+
+  <dialog id="new-dialog">
+    <form method="dialog">
+      <h2>Nová hra</h2>
+      <fieldset class="mode">
+        <legend>Zahájení</legend>
+        <label><input type="radio" name="mode" value="swap2"><span>Swap2</span></label>
+        <label><input type="radio" name="mode" value="free"><span>Volná hra</span></label>
+      </fieldset>
+      <p class="mode-help" id="mode-help"></p>
+      <p class="warn" id="new-warn">Rozehraná hra se smaže.</p>
+      <div class="dialog-buttons">
+        <button value="cancel">Zrušit</button>
+        <button value="start" class="primary">Začít</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="rules-dialog">
+    <form method="dialog">
+      <h2>Pravidla</h2>
+      <p><b>Cíl:</b> Jako první mít 5 (nebo více) svých symbolů v řadě – vodorovně, svisle nebo šikmo.</p>
+      <p><b>Ovládání:</b> Klepnutím na pole zobrazíte náhled tahu, druhým klepnutím na stejné pole tah potvrdíte.
+        Na počítači pokládá levé tlačítko myši kolečka a pravé tlačítko křížky.
+        Tlačítko <b>Zpět</b> vrátí poslední krok.</p>
+      <p><b>Zahájení Swap2:</b></p>
+      <ol>
+        <li>Hráč 1 položí 3 kameny (střídavě, např. O, X, O).</li>
+        <li>Hráč 2 si vybere: <b>X</b> – hraje za křížky, <b>O</b> – hraje za kolečka,
+          <b>+2</b> – položí 2 další kameny a výběr symbolu nechá na Hráči 1.</li>
+        <li>Pak se hráči střídají, každý táhne svým symbolem.</li>
+      </ol>
+      <p><b>Volná hra:</b> Kdo položí první kámen, je Hráč 1. Pak se hráči střídají.</p>
+      <div class="dialog-buttons">
+        <button value="close" class="primary">Rozumím</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>
